@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import Posts from "../Posts";
 import firebase from "firebase/compat/app";
+import { useSelector } from "react-redux";
+import { userSelect } from "../../app/store";
+
 const Feed = () => {
+  const user = useSelector(userSelect);
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
   useEffect(() => {
@@ -20,10 +24,10 @@ const Feed = () => {
   const sendPost = (e) => {
     e.preventDefault();
     db.collection("posts").add({
-      name: "Amine Chaker",
-      description: "this is a test",
+      name: user.displayName,
+      description: user.email,
       messaage: input,
-      photoUrl: "",
+      photoUrl: user.photoUrl || "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setInput("");
@@ -140,6 +144,7 @@ const Feed = () => {
         return (
           <Posts
             key={id}
+            name={name}
             description={description}
             messaage={messaage}
             photoUrl={photoUrl}

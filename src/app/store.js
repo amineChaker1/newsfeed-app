@@ -6,13 +6,18 @@ export const userSlice = createSlice({
     user: null,
   },
   reducers: {
-    increment: (state) => {
-      return state;
+    login: (state, action) => {
+      state.user = action.payload;
+    },
+    logout: (state) => {
+      state.user = null;
     },
   },
 });
-export const { increment } = userSlice.actions;
-
+export const { login, logout } = userSlice.actions;
+export const userSelect = (state) => state.user.user;
 export const store = configureStore({
-  reducer: userSlice.reducer,
+  reducer: {
+    user: userSlice.reducer,
+  },
 });

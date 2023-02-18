@@ -1,14 +1,19 @@
 import { Avatar } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
+import { userSelect } from "../../app/store";
 import "./sidebar.css";
 
 const Sidebar = () => {
+  const user = useSelector(userSelect);
   return (
-    <div className="sidebar sticky top-16 rounded-sm text-center">
-      <div className="sidebar-top flex flex-col items-center border-2 border-gray-400 border-b-0 rounded-t-md bg-white pb-3">
-        <Avatar className="mb-3" />
-        <h2 className="text-xl font-bold">Amine Chaker</h2>
-        <h4 className="text-gray-600 text-xl ">Ecole Economique</h4>
+    <div className="sidebar rounded-sm text-center">
+      <div className="sidebar-top pt-3 flex flex-wrap flex-col items-center border-2 border-gray-400 border-b-0 rounded-t-md bg-white pb-3">
+        <Avatar src={user.photoUrl} className="mb-3">
+          {user.email[0]}
+        </Avatar>
+        <h2 className="text-xl font-bold px-2"> {user.displayName} </h2>
+        <h4 className="text-gray-600 text-sm "> {user.email} </h4>
       </div>
       <div className="sidebar-stats p-3 mb-3 bg-white rounded-b-md border-t-gray-200 border-2 border-gray-400">
         <div className="sidebar-stat mt-3 flex justify-between">
