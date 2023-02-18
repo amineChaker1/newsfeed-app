@@ -4,7 +4,10 @@ import HeaderOption from "../HeaderOption";
 import avatarImg from "../../assets/avatar.png";
 const Header = () => {
   return (
-    <div className="header bg-white flex items-center justify-evenly border-b-2 border-blue-500 py-2 sticky top-0">
+    <div
+      style={{ zIndex: 999 }}
+      className="header bg-white flex items-center justify-evenly border-b-2 border-blue-500 py-2 sticky top-0"
+    >
       <img src={logo} alt="logo" className="w-20" />
       <div className="header-left flex items-center">
         <div className="header-search flex p-1 items-center bg-blue-100 rounded-md h-10">

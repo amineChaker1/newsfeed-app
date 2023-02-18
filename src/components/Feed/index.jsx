@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { db } from "../../firebase";
 import Posts from "../Posts";
-
+import firebase from "firebase/compat/app";
 const Feed = () => {
+  const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        );
+      });
+  }, []);
   const sendPost = (e) => {
     e.preventDefault();
+    db.collection("posts").add({
+      name: "Amine Chaker",
+      description: "this is a test",
+      messaage: input,
+      photoUrl: "",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    setInput("");
   };
   return (
     <div className="feed mx-5">
@@ -27,6 +49,8 @@ const Feed = () => {
 
           <form className="flex " style={{ width: "100%" }}>
             <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
               type="text"
               className="border-none ml-3 outline-none font-semibold flex-1 "
             />
@@ -112,14 +136,16 @@ const Feed = () => {
           </div>
         </div>
       </div>
-      {posts.map((post) => {
-        <Posts />;
+      {posts.map(({ id, data: { name, description, messaage, photoUrl } }) => {
+        return (
+          <Posts
+            key={id}
+            description={description}
+            messaage={messaage}
+            photoUrl={photoUrl}
+          />
+        );
       })}
-      <Posts
-        name="Amine"
-        description="this is a test"
-        messaage="WOW This worked"
-      />
     </div>
   );
 };

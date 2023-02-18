@@ -7,12 +7,12 @@ const Posts = ({ name, description, messaage, photoUrl }) => {
       <div className="post-header flex items-center mb-3">
         <Avatar />
         <div className="post-info ml-3">
-          <h2 className="text-black font-bold ">Amine Chaker</h2>
-          <p className="text-gray-600 font-light">Description</p>
+          <h2 className="text-black font-bold "> Amine Chaker </h2>
+          <p className="text-gray-600 font-light"> This is Hard coded </p>
         </div>
       </div>
       <div className="post-body" style={{ overflowWrap: "anywhere" }}>
-        <p>Message Goes Here</p>
+        <p> {messaage} </p>
       </div>
       <div className="post-buttons">
         <div className="input-options mt-2 flex justify-evenly">
